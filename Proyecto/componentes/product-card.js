@@ -4,19 +4,41 @@ class productCard extends HTMLElement {
         this.attachShadow({mode: 'open' });
     }
 
+    static get observedAttributes() {
+        return ["img", "title", "price", "description", "collection"]
+    }
+
+    attributeChangedCallback(attr,oldVal, newVal) {
+        if(attr === "img"){
+            this.img = newVal;
+        }
+        if(attr === "title"){
+            this.title = newVal;
+        }
+        if(attr === "price"){
+            this.price = newVal;
+        }
+        if(attr === "description"){
+            this.description = newVal;
+        }
+        if(attr === "collection"){
+            this.collection = newVal;
+        }
+        
+    }
+
     getTemplate(){
         const template = document.createElement("template");
         template.innerHTML = `
         <main class="container">
             <section class="imgBox">
-                <img src="./imgs/nike-blue.png" alt="Zapatos deportivos para correr color azul" />
+                <img src="${this.img}" alt="Zapatos deportivos para correr color azul" />
             </section>
             <section class="details">
                 <div class="content">
-                    <h2>Hola mundo</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus animi atque soluta quidem, id aut pariatur a vel autem unde rerum officiis eum sint non sit distinctio. Odio, voluptatem incidunt.
-                    Eos, recusandae.od ab in illum, quos ipsam explicabo commodi rerum debitis. Consectetur, obcaecati deleniti nulla quaerat autem dolor, ut laborum aspernatur at officia ipsum quidem, dolores iure</p>
-                    <h3>$300 USD</h3>
+                    <h2>${this.title} <span>${this.collection}</span></h2>
+                    <p>${this.description}</p>
+                    <h3>${this.price}</h3>
                     <button>Comprar</button>
                 </div>
             </section>
